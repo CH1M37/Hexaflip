@@ -10,21 +10,24 @@ public class ChasePlayer : MonoBehaviour {
     public int MaxDist = 10;
     public int MinDist = 1;
 
-    public GameObject uiManager;
+    GameObject uiManager;
     private UI_Manager uiScript;
+        
+
+    private void Start()
+    {
+        uiManager = GameObject.Find("UI_Manager");
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        uiScript = uiManager.GetComponent<UI_Manager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             Debug.Log("TU PERDS !");
-
+            uiScript.GameOver();
         }
-    }
-
-    private void Start()
-    {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()

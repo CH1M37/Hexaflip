@@ -169,3 +169,4 @@ MonoBehaviour:
   MoveSpeed: 3
   MaxDist: 10
   MinDist: 0
+  uiManager: {fileID: 0}
