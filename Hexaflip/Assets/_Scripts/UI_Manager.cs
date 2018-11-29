@@ -8,14 +8,8 @@ public class UI_Manager : MonoBehaviour
     public GameObject GameOverScreen;
     public GameObject WinScreen;
     public GameObject PauseMenu;
-
-    Rigidbody PlayerRb;
-
-    private void Start()
-    {
-        PlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-    }
-
+    
+    
     public void GameOver()
     {
         if (GameOverScreen.activeSelf == false)
@@ -40,7 +34,7 @@ public class UI_Manager : MonoBehaviour
         {
             PauseMenu.SetActive(true);
             Time.timeScale = 0;
-            PlayerRb.constraints = RigidbodyConstraints.FreezeAll;
+            
         }
         else if (Time.timeScale == 0 && GameOverScreen.activeSelf == false && WinScreen.activeSelf == false)
         {

@@ -16,7 +16,7 @@ public class BallController : MonoBehaviour {
 
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal * speed, 0.0f, moveVertical * speed);
+        Vector3 movement = new Vector3(moveHorizontal * speed * Time.timeScale, 0.0f, moveVertical * speed * Time.timeScale);
 
         transform.Translate(movement);
     }
