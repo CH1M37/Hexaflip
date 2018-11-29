@@ -9,16 +9,22 @@ public class TileTrigger : MonoBehaviour {
 
     float t;
     bool objectOnTile = false;
+    bool isBroken = false;
     GameObject breakableTile;
 
-    void Awake ()
+    private void Awake()
+    {
+        transform.position = Vector3.zero;
+    }
+    void Start ()
     {
         t = 0f;
         breakableTile = transform.parent.gameObject;
     }
 
     private void OnTriggerEnter(Collider other)
-    { 
+    {
+        Debug.Log("coucou");
         objectOnTile = true;
     }
     private void OnTriggerExit(Collider other)
@@ -33,12 +39,18 @@ public class TileTrigger : MonoBehaviour {
             t += Time.deltaTime;
         }
 
-        if(t > lifeTime)
+        if(!isBroken && t > lifeTime)
         {
-            Rigidbody rb = breakableTile.AddComponent<Rigidbody>();
-            rb.useGravity = true;
-            Invoke("DestroyTile", 2f);
+            BreakTile();
         }
+    }
+
+    private void BreakTile()
+    {
+        isBroken = true;
+        Rigidbody rb = breakableTile.AddComponent<Rigidbody>();
+        rb.useGravity = true;
+        Invoke("DestroyTile", 2f);
     }
 
     private void DestroyTile()

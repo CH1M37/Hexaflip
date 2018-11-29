@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class BreakableTile : MonoBehaviour {
 
-    [SerializeField]
-    GameObject hexaTriggerPrefab;
-
     private void Awake()
     {
+        GameObject hexaTriggerPrefab = Resources.Load<GameObject>("_Prefabs/hexaTrigger");
         GameObject hexaTrigger = Instantiate(hexaTriggerPrefab);
-        hexaTrigger.transform.SetParent(this.transform, true);
+        hexaTrigger.transform.SetParent(this.transform, false);
     }
 }
