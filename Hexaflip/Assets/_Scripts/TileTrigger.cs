@@ -24,7 +24,6 @@ public class TileTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("coucou");
         objectOnTile = true;
     }
     private void OnTriggerExit(Collider other)
@@ -34,23 +33,28 @@ public class TileTrigger : MonoBehaviour {
 
     void Update ()
     {
+        Debug.Log("time : " +t);
         if (objectOnTile)
         {
             t += Time.deltaTime;
         }
 
-        if(!isBroken && t > lifeTime)
+        if(t > lifeTime)
         {
-            BreakTile();
+            if (!isBroken)
+            {
+                BreakTile();
+            }
         }
     }
 
     private void BreakTile()
     {
-        isBroken = true;
+        Debug.Log("break");
         Rigidbody rb = breakableTile.AddComponent<Rigidbody>();
         rb.useGravity = true;
         Invoke("DestroyTile", 2f);
+        isBroken = true;
     }
 
     private void DestroyTile()
