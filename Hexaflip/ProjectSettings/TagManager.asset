@@ -6,6 +6,7 @@ TagManager:
   tags:
   - tile
   - Enemy
+  - PauseScreen
   layers:
   - Default
   - TransparentFX
