@@ -50,7 +50,8 @@ public class TileTrigger : MonoBehaviour {
 
     private void BreakTile()
     {
-        Debug.Log("break");
+        GameObject hexagon = breakableTile.transform.GetChild(0).gameObject;
+        hexagon.GetComponent<MeshCollider>().gameObject.SetActive(false);
         Rigidbody rb = breakableTile.AddComponent<Rigidbody>();
         rb.useGravity = true;
         Invoke("DestroyTile", 2f);
