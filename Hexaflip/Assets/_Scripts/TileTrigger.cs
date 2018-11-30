@@ -33,7 +33,6 @@ public class TileTrigger : MonoBehaviour {
 
     void Update ()
     {
-        Debug.Log("time : " +t);
         if (objectOnTile)
         {
             t += Time.deltaTime;

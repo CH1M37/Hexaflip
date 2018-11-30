@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GridHex : MonoBehaviour {
-
     [SerializeField]
-    private GameObject tilePrefab;
+    GameObject tilePrefab;
     [Tooltip("Number of tiles on one single Line. Total number will be numberOfTiles * numberOfTiles")]
     public int numberOfTiles;
-    [HideInInspector]
-    public float xDelta = 1.5f;
-    [HideInInspector]
-    public float zDelta = 1.7f;
 
     #region Grid Creation
 
@@ -28,12 +23,24 @@ public class GridHex : MonoBehaviour {
 
     public void CreateGrid(int n)
     {
-        for(int i=0; i<n;i++)
+        //Get Mesh Size
+        GameObject firstTile = Instantiate(tilePrefab);
+        GameObject hexa = firstTile.transform.GetChild(0).gameObject;
+        MeshCollider mesh = hexa.GetComponent<MeshCollider>();
+        Bounds bounds = mesh.bounds;
+
+        float zDelta = bounds.size.z;
+        float xDelta = zDelta * Mathf.Sqrt(3) / 2f;
+
+        //Destroy firstTile to avoid issues with the tile at index (0,0)
+        DestroyImmediate(firstTile);
+
+        //Spawn Tiles
+        for (int i=0; i<n;i++)
         {
             //even lines
             if (i % 2 == 0)
             { 
-                Debug.Log("i pair " + i);
                 for (int j = 0; j < n; j++)
                 {
                     GameObject tile = Instantiate(tilePrefab);
@@ -45,13 +52,12 @@ public class GridHex : MonoBehaviour {
             //odd lines
             else
             {
-                Debug.Log("i impair " + i);
                 for (int j = 0; j < n; j++)
                 {
                     GameObject tile = Instantiate(tilePrefab);
                     tile.transform.SetParent(this.transform, false);
                     tile.transform.position = Vector3.zero;
-                    tile.transform.position = new Vector3(xDelta * i, 0f, zDelta * j + 0.8f);
+                    tile.transform.position = new Vector3(xDelta * i, 0f, zDelta * j) + new Vector3(0f, 0f, zDelta / 2f);
                 }
             }
         }
