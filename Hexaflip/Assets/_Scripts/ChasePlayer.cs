@@ -25,7 +25,6 @@ public class ChasePlayer : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            Debug.Log("TU PERDS !");
             uiScript.GameOver();
         }
     }
